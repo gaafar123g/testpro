@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title id="pageTitle">Digital Marketing Pro | شركة ديجتال ماركتنج برو للتسويق الرقمي</title>
+<meta id="metaDesc" name="description" content="ديجتال ماركتنج برو شركة متخصصة في التسويق الرقمي، تصميم المواقع، SEO، إدارة الحملات الإعلانية، المتاجر الإلكترونية والحلول الرقمية في السعودية.">
+<meta property="og:title" content="Digital Marketing Pro">
+<meta property="og:description" content="حلول تسويق رقمي متكاملة: إعلانات، مواقع، SEO، سوشيال ميديا.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="img/og-cover.jpg">
+<meta property="og:locale" content="ar_SA">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://your-domain.com/">
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+<link rel="preload" as="image" href="img/hero/hero-1.svg">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Digital Marketing Pro","telephone":"+966547727535","email":"info@digital-marketing-proo.com","areaServed":"SA","address":{"@type":"PostalAddress","addressCountry":"SA"}}
+</script>
+</head>
+<body>
+<div id="loader"><div class="spin">💻</div></div>
+
+<header>
+ <div class="container nav-wrap">
+  <button id="hamburger" aria-label="menu" aria-expanded="false" aria-controls="mobileNav"><span></span><span></span><span></span></button>
+  <button id="langBtn" type="button">English</button>
+  <a class="logo-box" href="#top" aria-label="Digital Marketing Pro"><img src="img/logo.webp" alt="Digital Marketing Pro logo" width="56" height="56"></a>
+ </div>
+ <div class="mobile-nav" id="mobileNav"></div>
+</header>
+
+<section class="hero" id="top"><div id="heroSlider" class="hero-inner"></div></section>
+
+<section class="section" id="about">
+ <div class="container about-grid">
+  <div class="reveal">
+   <span class="eyebrow" data-t="about.eyebrow"></span>
+   <h2 data-t="about.title" style="font-size:32px;margin-bottom:18px"></h2>
+   <p data-t="about.p1"></p>
+   <p data-t="about.p2"></p>
+   <a class="btn btn-gold" href="https://wa.me/966547727535" target="_blank" data-t="about.cta" style="margin-top:10px"></a>
+  </div>
+  <div class="counters reveal" id="counters"></div>
+ </div>
+</section>
+
+<section class="section light-sec" id="whyus">
+ <div class="container">
+  <div class="section-head reveal"><span class="eyebrow" data-t="why.eyebrow"></span><h2 data-t="why.title"></h2></div>
+  <div class="grid g3" id="whyGrid"></div>
+ </div>
+</section>
+
+<section class="section" id="services">
+ <div class="container">
+  <div class="section-head reveal"><span class="eyebrow" data-t="svcUI.eyebrow"></span><h2 data-t="svcUI.title"></h2></div>
+  <div class="grid g3" id="servicesGrid"></div>
+ </div>
+</section>
+
+<section class="section" style="background:var(--navy)" id="process">
+ <div class="container">
+  <div class="section-head reveal"><span class="eyebrow" data-t="process.eyebrow"></span><h2 data-t="process.title"></h2></div>
+  <div class="timeline" id="timeline"></div>
+ </div>
+</section>
+
+<section class="section" id="packages">
+ <div class="container">
+  <div class="section-head reveal"><span class="eyebrow" data-t="pkg.eyebrow"></span><h2 data-t="pkg.title"></h2></div>
+  <div class="grid g3" id="pkgGrid"></div>
+ </div>
+</section>
+
+<section class="section" style="background:var(--navy)" id="portfolio">
+ <div class="container">
+  <div class="section-head reveal"><span class="eyebrow" data-t="pf.eyebrow"></span><h2 data-t="pf.title"></h2></div>
+  <div class="filters" id="pfFilters"></div>
+  <div class="pf-slider"><div class="pf-track" id="pfTrack"></div></div>
+  <div class="pf-arrows"><button id="pfPrev">‹</button><button id="pfNext">›</button></div>
+ </div>
+</section>
+
+<section class="section" style="padding:50px 0">
+ <div class="container">
+  <p class="reveal" style="text-align:center;color:var(--muted);max-width:600px;margin:0 auto 26px" data-t="partners.text"></p>
+  <div class="marquee"><div class="marquee-track" id="partnersTrack"></div></div>
+ </div>
+</section>
+
+<section class="section" style="background:var(--navy)" id="testimonials">
+ <div class="container">
+  <div class="section-head reveal"><h2 data-t="testi.title"></h2></div>
+  <div class="testi-wrap" id="testiWrap"></div>
+ </div>
+</section>
+
+<section class="section light-sec" id="faq">
+ <div class="container" style="max-width:800px">
+  <div class="section-head reveal"><h2 data-t="faq.title"></h2></div>
+  <div id="faqList"></div>
+ </div>
+</section>
+
+<section class="section" style="background:var(--navy)" id="contact">
+ <div class="container contact-grid">
+  <div class="reveal">
+   <span class="eyebrow" data-t="contact.eyebrow"></span>
+   <h2 data-t="contact.title" style="font-size:30px;margin-bottom:10px"></h2>
+   <p data-t="contact.text" style="color:var(--muted);margin-bottom:24px"></p>
+   <form id="contactForm">
+    <div class="form-row">
+     <input required id="f_name" data-ph="contact.f_name" type="text">
+     <input required id="f_phone" data-ph="contact.f_phone" type="tel">
+    </div>
+    <div class="form-row">
+     <input required id="f_email" data-ph="contact.f_email" type="email">
+     <input id="f_company" data-ph="contact.f_company" type="text">
+    </div>
+    <select id="f_service"></select>
+    <textarea id="f_msg" data-ph="contact.f_msg"></textarea>
+    <button class="btn btn-gold" type="submit" data-t="contact.send"></button>
+    <div id="formMsg"></div>
+   </form>
+  </div>
+  <div class="contact-info reveal">
+   <a class="item" href="tel:+966547727535"><i>📞</i><div><b data-t="contact.callus"></b><div style="color:var(--muted);direction:ltr;text-align:right">00966547727535</div></div></a>
+   <a class="item" href="https://wa.me/966547727535" target="_blank"><i>💬</i><div><b>WhatsApp</b><div style="color:var(--muted);direction:ltr;text-align:right">00966547727535</div></div></a>
+   <a class="item" href="mailto:info@digital-marketing-proo.com"><i>✉️</i><div><b data-t="contact.mailus"></b><div style="color:var(--muted)">info@digital-marketing-proo.com</div></div></a>
+   <div class="social-row" id="socialRow"></div>
+  </div>
+ </div>
+</section>
+
+<footer>
+ <div class="container">
+  <div class="foot-grid">
+   <div class="reveal">
+    <div class="logo-box" style="margin-bottom:14px"><img src="img/logo.webp" alt="Digital Marketing Pro" style="width:48px;height:48px;border-radius:11px"></div>
+    <p style="color:var(--muted);font-size:14px" data-t="footer.about"></p>
+   </div>
+   <div class="reveal"><h4 data-t="footer.linksTitle"></h4><ul id="footLinks"></ul></div>
+   <div class="reveal"><h4 data-t="footer.servicesTitle"></h4><ul id="footServices"></ul></div>
+   <div class="reveal"><h4 data-t="footer.contactTitle"></h4>
+    <ul><li style="direction:ltr;text-align:right">00966547727535</li><li>info@digital-marketing-proo.com</li></ul>
+    <div class="social-row" id="footSocial" style="margin-top:12px"></div>
+   </div>
+  </div>
+  <div class="copyright">© 2026 Digital Marketing Pro. All Rights Reserved.</div>
+ </div>
+</footer>
+
+<div class="floating">
+ <a class="fab wa" href="https://wa.me/966547727535" target="_blank" aria-label="WhatsApp">💬</a>
+ <a class="fab call" href="tel:+966547727535" aria-label="Call">📞</a>
+</div>
+
+<button id="toTop" aria-label="Back to top" type="button"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+
+<div id="svcModal">
+ <div class="modal-box">
+  <button class="close" id="svcClose">×</button>
+  <div class="ico" id="mIco"></div>
+  <h3 id="mTitle"></h3>
+  <p id="mDetail"></p>
+  <a class="btn btn-gold" style="margin-top:18px" target="_blank" href="https://wa.me/966547727535" id="mCta"></a>
+ </div>
+</div>
+
+
+<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
