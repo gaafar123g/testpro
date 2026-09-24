@@ -15,7 +15,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
-<link rel="preload" as="image" href="img/hero/hero-1.svg">
+<link rel="preload" as="image" href="img/hero/hero-1.webp" imagesrcset="img/hero/hero-1-800.webp 800w, img/hero/hero-1.webp 1600w" imagesizes="100vw">
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
 <script type="application/ld+json">
@@ -86,10 +86,10 @@
  </div>
 </section>
 
-<section class="section" style="padding:50px 0">
+<section class="section light-sec" id="partners">
  <div class="container">
-  <p class="reveal" style="text-align:center;color:var(--muted);max-width:600px;margin:0 auto 26px" data-t="partners.text"></p>
-  <div class="marquee"><div class="marquee-track" id="partnersTrack"></div></div>
+  <div class="section-head reveal"><span class="eyebrow" data-t="partners.eyebrow"></span><h2 data-t="partners.title"></h2><p data-t="partners.text"></p></div>
+  <div class="ps reveal" id="partnersSlider"></div>
  </div>
 </section>
 

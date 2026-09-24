@@ -5,7 +5,7 @@
 }
 @media (prefers-color-scheme: dark){:root{--navy:#0a1c3f;--navy-dark:#061024;}}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:84px}
+html{scroll-behavior:smooth;scroll-padding-top:84px;overflow-x:hidden;-webkit-text-size-adjust:100%}
 body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:var(--navy-dark);color:var(--text);line-height:1.7;overflow-x:hidden}
 img{max-width:100%;display:block}
 .container{max-width:1180px;margin:0 auto;padding:0 20px}
@@ -49,10 +49,10 @@ header{position:fixed;top:0;inset-inline:0;z-index:100;background:rgba(6,16,36,.
 .mobile-nav a:hover{color:var(--gold)}
 
 /* HERO */
-.hero{position:relative;height:92vh;min-height:560px;overflow:hidden}
+.hero{position:relative;height:92vh;height:92svh;min-height:560px;overflow:hidden}
 .slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;display:flex;align-items:center}
 .slide.active{opacity:1}
-.slide-bg{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat}
+.slide-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;max-width:none}
 [dir=ltr] .slide-bg{transform:scaleX(-1)}
 .slide::after{content:'';position:absolute;inset:0;background:linear-gradient(to left,rgba(6,16,36,.92) 0%,rgba(6,16,36,.7) 36%,rgba(6,16,36,0) 68%)}
 [dir=ltr] .slide::after{background:linear-gradient(to right,rgba(6,16,36,.92) 0%,rgba(6,16,36,.7) 36%,rgba(6,16,36,0) 68%)}
@@ -99,7 +99,7 @@ header{position:fixed;top:0;inset-inline:0;z-index:100;background:rgba(6,16,36,.
 .modal-box h3{font-size:22px;margin-bottom:14px}
 .modal-box p{color:var(--muted);font-size:15px}
 .svc-card{cursor:pointer}
-.card{background:linear-gradient(160deg,var(--navy),var(--navy-dark));border:1px solid rgba(255,255,255,.07);border-radius:var(--radius);padding:28px 24px;transition:.3s}
+.card{color:var(--text);background:linear-gradient(160deg,var(--navy),var(--navy-dark));border:1px solid rgba(255,255,255,.07);border-radius:var(--radius);padding:28px 24px;transition:.3s}
 .card:hover{transform:translateY(-6px);border-color:var(--gold)}
 .card .num,.card .ico{color:var(--gold);font-size:26px;font-weight:800;margin-bottom:10px}
 .card h3{font-size:18px;margin-bottom:8px}
@@ -248,3 +248,70 @@ footer{background:var(--navy-dark);border-top:1px solid rgba(255,255,255,.07);pa
   html{scroll-behavior:auto}
   .marquee-track{animation:none}
 }
+
+/* ===== إصلاحات ===== */
+/* 1) منع أي عنصر متحرك من توسيع عرض الصفحة على الجوال (كان يسبب تكبير/تصغير وتزحلق الصفحة) */
+section,footer,.hero{overflow-x:clip}
+/* 2) Bootstrap كان يلوّن نص .card بلون داكن فتختفي العناوين في الأقسام الداكنة */
+.light-sec .card h3{color:#16223f}
+/* 3) Bootstrap كان يفرغ لون/خلفية الأزرار عند الضغط والمرور */
+.btn.btn-gold:hover,.btn.btn-gold:active,.btn.btn-gold:focus-visible{color:var(--navy-dark)}
+.btn.btn-outline:hover,.btn.btn-outline:active{background:var(--gold);color:var(--navy-dark);border-color:var(--gold)}
+/* 4) شبكة أمان: شاشة التحميل تختفي حتى لو تعطل الجافاسكربت */
+#loader{animation:ldOut .5s ease 3.2s forwards}
+@keyframes ldOut{to{opacity:0;visibility:hidden}}
+
+@media(max-width:760px){
+  header{background:rgba(6,16,36,.97);-webkit-backdrop-filter:none;backdrop-filter:none}
+  .reveal.from-l:not(.in){transform:translateX(-44px)}
+  .reveal.from-r:not(.in){transform:translateX(44px)}
+  .slide-bg{object-position:22% center}
+}
+@media(max-width:640px){
+  .container{padding:0 16px}
+  .g3,.g4{grid-template-columns:1fr}
+  .section{padding:52px 0}
+  .section-head{margin-bottom:30px}
+  .section-head h2{font-size:26px}
+  #about h2{font-size:26px!important}
+  .nav-wrap{height:72px}
+  .mobile-nav{top:calc(72px + env(safe-area-inset-top,0px));width:100%;border-radius:0 0 16px 16px}
+  .logo-box img{width:48px;height:48px}
+  #hamburger{width:44px;height:44px}
+  #langBtn{padding:7px 18px;font-size:13px}
+  .hero{height:86vh;height:86svh;min-height:500px}
+  .slide-content h1{font-size:28px;line-height:1.35}
+  .slide-content p{font-size:16px;margin-bottom:24px}
+  .counter-card b{font-size:28px}
+  .timeline{flex-direction:column;overflow:visible}
+  .tl-step{min-width:0}
+  input,select,textarea{font-size:16px}
+  .card{padding:22px 18px}
+  .card.svc-card{padding:0}
+  .foot-grid{gap:24px}
+  .fab{width:48px;height:48px;font-size:20px}
+  .floating{bottom:calc(16px + env(safe-area-inset-bottom,0px));inset-inline-end:14px}
+  #toTop{width:44px;height:44px;bottom:calc(16px + env(safe-area-inset-bottom,0px));inset-inline-start:14px}
+  .modal-box{padding:28px 20px}
+  .modal-box .ico{margin:-28px -20px 20px}
+  .pf-arrows button{width:44px;height:44px}
+}
+
+/* ===== شركاء النجاح: سليدر صغير ===== */
+.ps{position:relative}
+.ps-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:6px 2px 14px;outline:none}
+.ps-track::-webkit-scrollbar{display:none}
+.ps-item{flex:0 0 clamp(138px,42vw,188px);scroll-snap-align:start;background:#fff;border:1px solid rgba(10,28,63,.08);border-radius:16px;overflow:hidden;color:#16223f;display:block;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+a.ps-item:hover,a.ps-item:focus-visible{transform:translateY(-5px);box-shadow:0 14px 28px rgba(10,28,63,.16);border-color:var(--gold)}
+.ps-img{position:relative;aspect-ratio:1/1;background:#fff;overflow:hidden}
+.ps-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+a.ps-item:hover .ps-img img{transform:scale(1.06)}
+.ps-go{position:absolute;top:8px;inset-inline-end:8px;width:26px;height:26px;border-radius:50%;background:rgba(6,16,36,.78);color:var(--gold2);display:flex;align-items:center;justify-content:center;font-size:14px;line-height:1}
+.ps-badge{position:absolute;bottom:8px;inset-inline-start:8px;background:var(--gold);color:var(--navy-dark);font-size:11px;font-weight:800;padding:2px 10px;border-radius:20px}
+.ps-cap{padding:10px 12px 12px;text-align:center;min-height:62px}
+.ps-cap b{display:block;font-size:14px;line-height:1.35}
+.ps-cap span{display:block;font-size:12px;color:#5b6a89;margin-top:2px}
+.ps-btn{position:absolute;top:calc(50% - 30px);z-index:2;width:40px;height:40px;border-radius:50%;border:1px solid rgba(10,28,63,.15);background:#fff;color:#16223f;font-size:22px;line-height:1;cursor:pointer;box-shadow:0 6px 16px rgba(10,28,63,.18);transition:background .25s,color .25s}
+.ps-btn:hover{background:var(--gold);color:var(--navy-dark)}
+.ps-l{left:-6px}.ps-r{right:-6px}
+@media(max-width:640px){.ps-btn{display:none}}

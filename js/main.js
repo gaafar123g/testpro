@@ -13,7 +13,7 @@ function renderHero(){
   const slides = D.t[lang].hero.slides;
   const bgs = D.heroBgs;
   document.getElementById('heroSlider').innerHTML = `
-   ${slides.map((s,i)=>`<div class="slide ${i===0?'active':''}"><div class="slide-bg" style="background-image:url('${bgs[i]}')"></div><div class="container slide-content"><h1>${s.h}</h1><p>${s.p}</p><a class="btn btn-gold" target="_blank" href="https://wa.me/966547727535">${s.cta}</a></div></div>`).join('')}
+   ${slides.map((s,i)=>`<div class="slide ${i===0?'active':''}"><img class="slide-bg" src="${bgs[i]}.webp" srcset="${bgs[i]}-800.webp 800w, ${bgs[i]}.webp 1600w" sizes="100vw" alt="" width="1600" height="900" decoding="async" ${i===0?'fetchpriority="high"':'loading="lazy"'}><div class="container slide-content"><h1>${s.h}</h1><p>${s.p}</p><a class="btn btn-gold" target="_blank" href="https://wa.me/966547727535">${s.cta}</a></div></div>`).join('')}
    <div class="hero-arrows"><button id="heroPrev">‹</button><button id="heroNext">›</button></div>
    <div class="dots" id="heroDots">${slides.map((_,i)=>`<span data-i="${i}" class="${i===0?'active':''}"></span>`).join('')}</div>`;
   let cur=0; const slideEls=[...document.querySelectorAll('.slide')]; const dotEls=[...document.querySelectorAll('#heroDots span')];
@@ -35,20 +35,20 @@ function animateCount(el){
   const t=setInterval(()=>{cur+=step; if(cur>=target){cur=target;clearInterval(t);} el.textContent=cur+'+';},30);
 }
 
-const svcImg = i => 'img/services/svc-'+String(i+1).padStart(2,'0')+'.svg';
+const svcImg = i => 'img/services/svc-'+String(i+1).padStart(2,'0');
 function renderCards(containerId, arr, type){
   const textArr = type==='why' ? D.t[lang].whyItems : D.t[lang].services;
   document.getElementById(containerId).innerHTML = arr.map((item,i)=>{
     const d = textArr[i];
     if(type==='why') return `<div class="card reveal"><div class="num">${item.num}</div><h3>${d.h}</h3><p>${d.p}</p></div>`;
-    if(type==='services') return `<div class="card reveal svc-card" data-i="${i}" tabindex="0" role="button"><div class="svc-img"><img src="${svcImg(i)}" alt="${d.h}" width="800" height="520" loading="lazy"></div><div class="svc-body"><h3>${d.h}</h3><p>${d.p}</p><span class="more">${tr('svcUI.more')} ${lang==='ar'?'←':'→'}</span></div></div>`;
+    if(type==='services') return `<div class="card reveal svc-card" data-i="${i}" tabindex="0" role="button"><div class="svc-img"><img src="${svcImg(i)}.webp" srcset="${svcImg(i)}-480.webp 480w, ${svcImg(i)}.webp 800w" sizes="(max-width:640px) 92vw, (max-width:980px) 46vw, 380px" alt="${d.h}" width="800" height="520" loading="lazy" decoding="async"></div><div class="svc-body"><h3>${d.h}</h3><p>${d.p}</p><span class="more">${tr('svcUI.more')} ${lang==='ar'?'←':'→'}</span></div></div>`;
   }).join('');
   if(type==='services'){document.querySelectorAll('.svc-card').forEach(c=>{c.onclick=()=>openServiceModal(+c.dataset.i);c.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openServiceModal(+c.dataset.i);}};});}
 }
 
 function openServiceModal(i){
   const s = D.t[lang].services[i];
-  document.getElementById('mIco').innerHTML = `<img src="${svcImg(i)}" alt="${s.h}" width="800" height="520">`;
+  document.getElementById('mIco').innerHTML = `<img src="${svcImg(i)}.webp" alt="${s.h}" width="800" height="520">`;
   document.getElementById('mTitle').textContent = s.h;
   document.getElementById('mDetail').textContent = s.detail;
   document.getElementById('mCta').textContent = tr('svcUI.cta');
@@ -86,9 +86,34 @@ function renderPortfolio(){
   observeReveal();
 }
 
+/* ===== شركاء النجاح: سليدر شعارات صغير (سحب باللمس + أسهم + تشغيل تلقائي) ===== */
+let psTimer=null, psPause=false;
 function renderPartners(){
-  const logos=[...D.partners,...D.partners];
-  document.getElementById('partnersTrack').innerHTML = logos.map(p=>`<span>${p}</span>`).join('');
+  const root=document.getElementById('partnersSlider'); if(!root) return;
+  const T=D.t[lang].partners;
+  clearInterval(psTimer);
+  root.innerHTML=`<button class="ps-btn ps-l" type="button" aria-label="${T.prev}">‹</button>
+   <div class="ps-track" tabindex="0">${D.clients.map(c=>{
+     const name=lang==='ar'?c.ar:c.en, sub=c.s?T[c.s]:(c.c?T[c.c]:'');
+     const inner=`<div class="ps-img"><img src="img/partners/${c.img}.webp" alt="${name}" width="240" height="240" loading="lazy" decoding="async">${c.s?`<span class="ps-badge">${T[c.s]}</span>`:''}${c.url?'<span class="ps-go" aria-hidden="true">↗</span>':''}</div><div class="ps-cap"><b>${name}</b>${sub&&!c.s?`<span>${sub}</span>`:''}</div>`;
+     return c.url?`<a class="ps-item" href="${c.url}" target="_blank" rel="noopener noreferrer" title="${T.visit}: ${name}">${inner}</a>`:`<div class="ps-item">${inner}</div>`;
+   }).join('')}</div>
+   <button class="ps-btn ps-r" type="button" aria-label="${T.next}">›</button>`;
+  const tr_=root.querySelector('.ps-track');
+  const step=()=>{const it=tr_.querySelector('.ps-item');return it?it.getBoundingClientRect().width+16:200;};
+  root.querySelector('.ps-l').onclick=()=>tr_.scrollBy({left:-step(),behavior:'smooth'});
+  root.querySelector('.ps-r').onclick=()=>tr_.scrollBy({left:step(),behavior:'smooth'});
+  const pause=()=>{psPause=true;}, resume=()=>{psPause=false;};
+  ['mouseenter','touchstart','focusin','pointerdown'].forEach(e=>root.addEventListener(e,pause,{passive:true}));
+  ['mouseleave','touchend','focusout'].forEach(e=>root.addEventListener(e,()=>setTimeout(resume,2500),{passive:true}));
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  psTimer=setInterval(()=>{
+    if(psPause||document.hidden) return;
+    const r=root.getBoundingClientRect(); if(r.bottom<0||r.top>innerHeight) return;   // لا يتحرك وهو خارج الشاشة
+    const end=Math.abs(tr_.scrollLeft)+tr_.clientWidth>=tr_.scrollWidth-4;
+    if(end) tr_.scrollTo({left:0,behavior:'smooth'});
+    else tr_.scrollBy({left:(lang==='ar'?-1:1)*step(),behavior:'smooth'});
+  },2600);
 }
 
 let testiIdx=0;
@@ -141,9 +166,11 @@ function applyStatic(){
 
 function assignDirs(){
   const vw=innerWidth, mid=vw/2, seen=new Map();
-  document.querySelectorAll('.reveal:not(.in)').forEach((el,i)=>{
-    el.classList.remove('from-l','from-r');
-    const r=el.getBoundingClientRect(), c=r.left+r.width/2;
+  const els=[...document.querySelectorAll('.reveal:not(.in)')];
+  els.forEach(el=>el.classList.remove('from-l','from-r'));
+  const rects=els.map(el=>el.getBoundingClientRect());   // قراءة واحدة لكل العناصر (بدون Layout Thrashing)
+  els.forEach((el,i)=>{
+    const r=rects[i], c=r.left+r.width/2;
     if(r.width>vw*.6) el.classList.add(i%2?'from-r':'from-l');
     else if(c<mid-vw*.08) el.classList.add('from-l');
     else if(c>mid+vw*.08) el.classList.add('from-r');
@@ -154,6 +181,7 @@ function assignDirs(){
 let revealIO;
 function observeReveal(){
   assignDirs();
+  if(!('IntersectionObserver' in window)){document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));return;}
   if(revealIO) revealIO.disconnect();
   revealIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revealIO.unobserve(e.target);}}),{threshold:.12,rootMargin:'0px 0px -6% 0px'});
   document.querySelectorAll('.reveal:not(.in)').forEach(el=>revealIO.observe(el));
@@ -208,7 +236,9 @@ document.getElementById('svcClose').onclick = closeServiceModal;
 document.getElementById('svcModal').addEventListener('click', e=>{if(e.target.id==='svcModal') closeServiceModal();});
 document.addEventListener('keydown', e=>{if(e.key==='Escape'){closeServiceModal();setMenu(false);}});
 
-renderAll();
-
-setTimeout(()=>{document.getElementById('loader').classList.add('hide');}, 2000);
+function hideLoader(){const l=document.getElementById('loader');if(l)l.classList.add('hide');}
+try{ renderAll(); }catch(err){ console.error('render error',err); hideLoader(); }
+setTimeout(hideLoader, 2000);
+/* شبكة أمان: أي عنصر داخل الشاشة ولم يظهر بعد يظهر بعد 4 ثواني */
+setTimeout(()=>document.querySelectorAll('.reveal:not(.in)').forEach(el=>{const r=el.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)el.classList.add('in');}),4000);
 })();
